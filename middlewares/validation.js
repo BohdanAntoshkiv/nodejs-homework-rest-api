@@ -1,4 +1,5 @@
-const { contactSchema } = require('../shema');
+
+const { contactSchema } = require("../shema");
 
 const validation = (contactSchema) => {
     return (req, res, next) => {
@@ -6,10 +7,10 @@ const validation = (contactSchema) => {
         if (error) {
             error.status = 400;
             next(error);
-            return
+            return;
         }
-        next()
-    }
-}
+        next();
+    };
+};
 
 module.exports = validation;
