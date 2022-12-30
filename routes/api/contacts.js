@@ -1,29 +1,30 @@
-const express = require('express')
-const router = express.Router()
-const { ErrorHttp } = require('../../helpers/index.js')
+const express = require("express");
+const router = express.Router();
+const { ErrorHttp } = require("../../helpers/index.js");
 
 const {
   listContacts,
   getContactById,
-  removeContact,
   addContact,
+  removeContact,
   updateContact,
-} = require('../../models/contacts')
+} = require("../../models/contacts");
 
-const { validation } = require('../../middlewares');
-const { contactShema } = require('../../models/contacts');
+const { validation } = require("../../middlewares");
+const { contactSchema } = require("../../shema");
 
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   const contacts = await listContacts();
   res.json({ contacts });
 });
 
-router.get('/:contactId', async (req, res, next) => {
+router.get("/:contactId", async (req, res, next) => {
   const result = await getContactById(req.params.contactId);
+
   if (!result) {
-    return next(ErrorHttp(404, 'Notfound'));
+    return next(ErrorHttp(404, "Not found"));
   }
-  res.status(200).json({ result })
+  res.status(200).json({ result });
 });
 
 router.post("/", validation(contactSchema), async (req, res, next) => {
