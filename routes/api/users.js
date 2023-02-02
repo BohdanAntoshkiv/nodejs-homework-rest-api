@@ -6,6 +6,12 @@ const { users: ctrl } = require("../../controllers");
 const router = express.Router();
 
 router.get("/current", authWrapper, ctrlWrapper(ctrl.getCurrent));
-router.patch("/avatars", upload.single("avatar"), authWrapper, ctrlWrapper(ctrl.updateAvatar));
+router.patch(
+    "/avatars",
+    authWrapper,
+    upload.single("avatar"),
+    ctrlWrapper(ctrl.updateAvatar)
+);
+module.exports = router;
 
 module.exports = router;
